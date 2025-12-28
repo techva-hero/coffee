@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Break | Menu</title>
+    <title>Coffee Break | Home</title>
     <style>
+        /* CSS Variables */
         :root {
             --bg-color: #ffffff;
             --header-bg: rgba(255, 255, 255, 0.98);
             --text-color: #102f76;
             --accent-color: #102f76;
             --btn-home-bg: #ffffff;
-            --btn-static-bg: #f0f0f0;
-            --btn-static-text: #a0a0a0;
             --shadow: rgba(0, 0, 0, 0.1);
         }
 
@@ -22,8 +21,6 @@
             --text-color: #ffffff;
             --accent-color: #4a74d4; 
             --btn-home-bg: #1e1e1e;
-            --btn-static-bg: #2a2a2a;
-            --btn-static-text: #555555;
             --shadow: rgba(0, 0, 0, 0.5);
         }
 
@@ -40,7 +37,7 @@
             background-color: var(--bg-color);
             width: 100%;
             color: var(--text-color);
-            overflow-x: hidden; /* Prevents accidental side-scrolling */
+            overflow-x: hidden;
         }
 
         /* --- Header & Navigation --- */
@@ -52,7 +49,7 @@
             background-color: var(--header-bg);
             padding: 10px 5%;
             display: flex;
-            flex-direction: column; /* Stack on mobile by default */
+            flex-direction: column;
             align-items: center;
             gap: 10px;
             z-index: 1000;
@@ -61,7 +58,6 @@
             backdrop-filter: blur(8px);
         }
 
-        /* Desktop Header Layout */
         @media (min-width: 768px) {
             header {
                 flex-direction: row;
@@ -82,10 +78,8 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: -1px;
-            white-space: nowrap;
         }
 
-        /* --- Coffee Cup Toggle --- */
         #theme-toggle {
             background: none;
             border: 2px solid var(--accent-color);
@@ -97,13 +91,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        #theme-toggle:hover {
-            transform: scale(1.1);
-            background-color: var(--accent-color);
         }
 
         /* --- Navigation Buttons --- */
@@ -122,7 +109,7 @@
 
         .btn {
             padding: 8px 12px;
-            text-decoration: none;
+            text-decoration: none; /* Removes underline from links */
             font-size: 0.75rem;
             font-weight: 700;
             border-radius: 4px;
@@ -130,8 +117,9 @@
             cursor: pointer;
             transition: all 0.2s;
             white-space: nowrap;
-            flex: 1; /* Stretch buttons equally on mobile */
+            flex: 1;
             text-align: center;
+            display: inline-block;
         }
 
         @media (min-width: 768px) {
@@ -142,14 +130,25 @@
             }
         }
 
-        .btn-home { background: var(--btn-home-bg); color: var(--accent-color); }
-        .btn-static { background: var(--btn-static-bg); color: var(--btn-static-text); border-color: var(--btn-static-bg); cursor: default; }
-        .btn-order { background: var(--accent-color); color: #ffffff; }
+        .btn-home { 
+            background: var(--btn-home-bg); 
+            color: var(--accent-color); 
+        }
+
+        .btn-order { 
+            background: var(--accent-color); 
+            color: #ffffff; 
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
 
         /* --- Main Content --- */
         .menu-wrapper {
             width: 100%;
-            padding-top: 110px; /* More space for the stacked mobile header */
+            padding-top: 110px; /* Space for mobile header */
             line-height: 0;
         }
 
@@ -184,8 +183,10 @@
         
         <div class="nav-buttons">
             <a href="#top" class="btn btn-home">Home</a>
-            <button class="btn btn-static">Locations</button>
-            <button class="btn btn-order">Order Now</button>
+            
+            <a href="locations.html" class="btn btn-home">Locations</a>
+            
+            <a href="#" class="btn btn-order">Order Now</a>
         </div>
     </header>
 
@@ -201,6 +202,7 @@
         const toggleBtn = document.getElementById('theme-toggle');
         const body = document.body;
 
+        // Check for saved user preference
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme) {
             body.setAttribute('data-theme', currentTheme);
